@@ -14,18 +14,27 @@ class ArticlesController extends AppController
 {
 
     /**
-     * Index method
+     * Index method<br>
+     * /Articles/indexにアクセスでキックされる。
      *
      * @return \Cake\Http\Response|void
      */
     public function index()
     {
+        // チュートリアルからコピペ
+        $this->loadComponent('Paginator');
+        $articles = $this->Paginator->paginate($this->Articles->find());
+        // 画面へarticlesを渡すs
+        $this->set(compact('articles'));
+
+        /* bakeで生成されたソース
         $this->paginate = [
             'contain' => ['Users']
         ];
         $articles = $this->paginate($this->Articles);
 
         $this->set(compact('articles'));
+        */
     }
 
     /**
@@ -37,11 +46,15 @@ class ArticlesController extends AppController
      */
     public function view($id = null)
     {
+        $article = $this->Articles->findBySlug($id)->firstOrFail();
+        $this->set(compact('article'));
+        /* bakeされたソース
         $article = $this->Articles->get($id, [
             'contain' => ['Users', 'Tags']
         ]);
 
         $this->set('article', $article);
+        */
     }
 
     /**

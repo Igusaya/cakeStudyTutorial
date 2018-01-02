@@ -4,6 +4,27 @@
  * @var \App\Model\Entity\Article[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
+<h1>記事一覧</h1>
+<table>
+    <tr>
+        <th>タイトル</th>
+        <th>作成日時</th>
+    </tr>
+
+    <!-- ここで、$articles クエリーオブジェクトを繰り返して、記事の情報を出力します -->
+
+    <?php foreach ($articles as $article): ?>
+        <tr>
+            <td>
+                <?= $this->Html->link($article->title, ['action' => 'view', $article->slug]) ?>
+            </td>
+            <td>
+                <?= $article->created->format(DATE_RFC850) ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<!--　
 <h1>TEST</h1>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -60,3 +81,4 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+-->

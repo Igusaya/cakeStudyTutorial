@@ -37,8 +37,8 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize()
-    {
+    public function initialize() {
+
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
@@ -50,5 +50,28 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+
+        // 以下追加
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            // 未認証の場合、直前のページに戻します
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        // display アクションを許可して、PagesController が引き続き
+        // 動作するようにします。また、読み取り専用のアクションを有効にします。
+        $this->Auth->allow(['display', 'view', 'index']);
+
     }
 }
