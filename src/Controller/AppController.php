@@ -14,6 +14,7 @@
  */
 namespace App\Controller;
 
+use App\Utils\MyLogger;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 
@@ -38,7 +39,7 @@ class AppController extends Controller
      * @return void
      */
     public function initialize() {
-
+        MyLogger::startMethod(__METHOD__);
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
@@ -52,6 +53,7 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
 
         // 以下追加
+
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [

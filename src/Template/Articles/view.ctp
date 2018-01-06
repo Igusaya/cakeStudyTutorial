@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
+<h1><?= h($article->title) ?></h1>
+<p><?= h($article->body) ?></p>
+<p><small>作成日時: <?= $article->created->format(DATE_RFC850) ?></small></p>
+<p><?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?></p>
+
+<!-- 以下bakeされたソース
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -81,3 +87,4 @@
         <?php endif; ?>
     </div>
 </div>
+-->
